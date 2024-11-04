@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="scarletRed">#F53308</color>
+    <color name="inactiveTopicTextColor">#B310100F</color>
+    <color name="newsHeadlineTextColor">#000000</color>
+    <color name="newsDescriptionColorCollapsed">#838080</color>
+    <color name="newsDescriptionColorExpanded">#000000</color>
+</resources>
