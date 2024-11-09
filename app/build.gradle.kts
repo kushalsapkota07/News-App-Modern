@@ -1,6 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("kotlin-parcelize")
+    id ("kotlin-android")
+    id("com.google.devtools.ksp") version "2.0.21-1.0.25"
+    id("kotlin-kapt")
+
 }
 
 android {
@@ -33,6 +38,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -47,4 +56,20 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation(libs.androidx.room.ktx)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt (libs.androidx.room.compiler.v260)
+
+
+
+    //Retrofit
+    implementation (libs.retrofit)
+    implementation(libs.logging.interceptor)
+    //Glide
+    implementation (libs.glide)
+    //Retrofit GSON converter
+    implementation (libs.converter.gson)
 }

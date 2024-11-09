@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/news_nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_nav_graph"
+    app:startDestination="@id/fragmentHomePage"
+    >
+
+    <fragment android:id="@+id/fragmentHomePage"
+        android:name="com.example.newsappmodern.ui.HomePageFragment"
+        android:label="HomePageFragment"
+        >
+
+    </fragment>
+
+    <fragment android:id="@+id/fragmentBookmarksPage"
+        android:name="com.example.newsappmodern.ui.BookmarksPageFragment"
+        android:label="BookmarksPageFragment"
+        >
+
+    </fragment>
+
+    <fragment android:id="@+id/fragmentProfilePage"
+        android:name="com.example.newsappmodern.ui.ProfilePageFragment"
+        android:label="ProfilePageFragment"
+        >
+
+    </fragment>
 
 </navigation>

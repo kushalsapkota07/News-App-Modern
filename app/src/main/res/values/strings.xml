@@ -5,4 +5,11 @@
     <string name="profile">Profile</string>
     <string name="search">Search</string>
     <string name="more">More</string>
+    <string name="top_trending">Top Trending</string>
+    <string name="current_topic">Current Topic</string>
+    <string name="sample_news_headline">Women Reading Newspaper at her home</string>
+    <string name="sample_news_description">Emerging details comes out from florida as women becomes the first one to land on mars.</string>
+    <string name="sample_news_published_date">Nov 2,2024</string>
+    <string name="sample_error_message">Sorry, an error occurred.</string>
+    <string name="loading">Loading...</string>
 </resources>
