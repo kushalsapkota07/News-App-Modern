@@ -7,9 +7,31 @@
     <string name="more">More</string>
     <string name="top_trending">Top Trending</string>
     <string name="current_topic">Current Topic</string>
-    <string name="sample_news_headline">Women Reading Newspaper at her home</string>
+    <string name="sample_news_headline">Women Reading Newspaper at her home is incredible news and that is fascinating</string>
     <string name="sample_news_description">Emerging details comes out from florida as women becomes the first one to land on mars.</string>
     <string name="sample_news_published_date">Nov 2,2024</string>
     <string name="sample_error_message">Sorry, an error occurred.</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
+    <string name="fab_content_description">Save Article</string>
+    <string name="personalize_your_feed">Personalize Your Feed</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="text_size">Text Size</string>
+    <string name="language">Language</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="region">Region</string>
+    <string name="text_size_sample">A quick dog jumped over the lazy brown fox.</string>
+    <string name="select_country">Select Country</string>
+    <string name="confirm_country_change_message">Changing country requires app restart.\n Do you want to restart app ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="Restart">Restart</string>
+    <string-array name="news_categories">
+        <item>Business</item>
+        <item>Sports</item>
+        <item>Science</item>
+        <item>Education</item>
+        <item>Entertainment</item>
+    </string-array>
+
 </resources>

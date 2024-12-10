@@ -18,4 +18,14 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
+
+    <!-- Switch Style -->
+    <style name="Widget.AppCompat.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorPrimary">@color/scarletRed</item>
+        <item name="colorSurfaceVariant">@color/black</item>
+    </style>
 </resources>

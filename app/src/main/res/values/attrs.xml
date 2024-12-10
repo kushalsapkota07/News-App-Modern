@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTextSizeSelector">
+
+        <attr name="buttonGroupVisibility" format="enum">
+        <enum name="visible" value="0"/>
+        <enum name="invisible" value="4"/>
+        <enum name="gone" value="8"/>
+        </attr>
+
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="srcImageTextSize" format="reference"/>
+        <attr name="textSizeText" format="string"/>
+
+        <attr name="isExpandable" format="boolean"/>
+        <attr name="defaultTextSize" format="enum">
+            <enum name="small" value="12"/>
+            <enum name="medium" value="16"/>
+            <enum name="large" value="20"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CustomPersonalizeFeed">
+        <attr name="srcImagePersonalize" format="reference"/>
+        <attr name="srcIconNavigate" format="reference"/>
+        <attr name="personalizeFeedText" format="string"/>
+    </declare-styleable>
+</resources>

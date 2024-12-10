@@ -11,7 +11,8 @@ import com.example.newsappmodern.R
 import com.example.newsappmodern.databinding.ArticleItemCollapsedBinding
 import com.example.newsappmodern.models.Article
 
-class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleItemCollapsedViewHolder>() {
+class NewsAdapterCollapsed: RecyclerView.Adapter<NewsAdapterCollapsed.ArticleItemCollapsedViewHolder>() {
+
     inner class ArticleItemCollapsedViewHolder(
          val articleItemCollapsedBinding: ArticleItemCollapsedBinding
     ): RecyclerView.ViewHolder(articleItemCollapsedBinding.root) {
@@ -31,26 +32,29 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleItemCollapsedViewHold
 
     }
 
-    //Async list differ - it will take two lists and compares them (all i background)
-    val differ: AsyncListDiffer<Article> = AsyncListDiffer(this,differCallback)
+    //Async list differ - it will take two lists and compares them (all in background)
+    // async list differ for vertical recycler view
+     val differ: AsyncListDiffer<Article> = AsyncListDiffer(this,differCallback)
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): NewsAdapter.ArticleItemCollapsedViewHolder {
-        val binding = ArticleItemCollapsedBinding.inflate(
+    ): NewsAdapterCollapsed.ArticleItemCollapsedViewHolder {
+        val articleItemCollapsedBinding = ArticleItemCollapsedBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
 
-        return ArticleItemCollapsedViewHolder(binding)
+        return ArticleItemCollapsedViewHolder(articleItemCollapsedBinding)
     }
 
     override fun onBindViewHolder(
-        holder: NewsAdapter.ArticleItemCollapsedViewHolder,
+        holder: NewsAdapterCollapsed.ArticleItemCollapsedViewHolder,
         position: Int
     ) {
+
         val article : Article = differ.currentList[position]
         holder.articleItemCollapsedBinding.apply {
             Glide.with(this.root).load(article.imageUrl).placeholder(R.drawable.article_placeholder_image).into(articleImage)
@@ -63,6 +67,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleItemCollapsedViewHold
 
             }
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -70,9 +75,6 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleItemCollapsedViewHold
     }
 
     private var onItemClickListener: ((Article) -> Unit)? = null
-
-    var sum: ((Int, Int) -> Int?)? = null
-
 
     fun setOnItemClickListener (listener : (Article) -> Unit){
         onItemClickListener = listener

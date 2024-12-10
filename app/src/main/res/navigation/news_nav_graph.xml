@@ -1,29 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/news_nav_graph"
     app:startDestination="@id/fragmentHomePage"
     >
 
     <fragment android:id="@+id/fragmentHomePage"
         android:name="com.example.newsappmodern.ui.HomePageFragment"
-        android:label="HomePageFragment"
+        android:label="@string/home"
         >
 
+        <action
+            android:id="@+id/action_fragmentHomePage_to_articleFragment"
+            app:destination="@id/articleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentHomePage"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment android:id="@+id/fragmentBookmarksPage"
         android:name="com.example.newsappmodern.ui.BookmarksPageFragment"
-        android:label="BookmarksPageFragment"
+        android:label="@string/bookmarks"
         >
 
+        <action
+            android:id="@+id/action_fragmentBookmarksPage_to_articleFragment"
+            app:destination="@id/articleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentBookmarksPage"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment android:id="@+id/fragmentProfilePage"
         android:name="com.example.newsappmodern.ui.ProfilePageFragment"
-        android:label="ProfilePageFragment"
+        android:label="@string/profile"
         >
+
+    </fragment>
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.example.newsappmodern.ui.ArticleFragment"
+        android:label="@string/home" >
+
+        <argument
+            android:name="article"
+            app:argType="com.example.newsappmodern.models.Article" />
 
     </fragment>
 

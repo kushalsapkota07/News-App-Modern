@@ -6,5 +6,6 @@
     <color name="inactiveTopicTextColor">#B310100F</color>
     <color name="newsHeadlineTextColor">#000000</color>
     <color name="newsDescriptionColorCollapsed">#838080</color>
+    <color name="fab_background">#d9d9d9</color>
     <color name="newsDescriptionColorExpanded">#000000</color>
 </resources>

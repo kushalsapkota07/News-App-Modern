@@ -22,7 +22,7 @@
         android:id="@+id/separatorLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/separator_line"
+        android:src="@drawable/separator_line_vertical"
         app:layout_constraintLeft_toRightOf="@id/articleImage"
         app:layout_constraintRight_toLeftOf="@id/articleHeadline"
         app:layout_constraintTop_toTopOf="parent"

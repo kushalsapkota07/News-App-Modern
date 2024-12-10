@@ -12,10 +12,22 @@ interface NewsDataApi {
     suspend fun getLatestNews(
         @Query("country")
         countryCode:String = "au",
+        @Query("category")
+        category: String?="business",
         @Query("page")
         page:String?=null,
+        @Query("apiKey")
+        apiKey:String= API_KEY
+    ): Response<NewsResponse>
+
+    @GET("1/latest")
+    suspend fun getTopTrendingNews(
+        @Query("country")
+        countryCode:String? = "wo",
         @Query("category")
-        category: String?="entertainment",
+        category: String?="top",
+        @Query("page")
+        page:String?=null,
         @Query("apiKey")
         apiKey:String= API_KEY
     ): Response<NewsResponse>
