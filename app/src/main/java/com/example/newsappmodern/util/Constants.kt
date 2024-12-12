@@ -34,7 +34,7 @@ enum class Countries(val country:String,val countryCode:String, val icon:Int) {
     World("World","wo",R.drawable.wo),
     Australia("Australia","au", R.drawable.au),
     UnitedStates("United States","us", R.drawable.us),
-    UnitedKingdom("United Kingdom","uk", R.drawable.uk),
+    UnitedKingdom("United Kingdom","gb", R.drawable.uk),
     Nepal("Nepal","np", R.drawable.np),
     India("India","in", R.drawable.`in`),
     Canada("Canada","ca", R.drawable.ca),

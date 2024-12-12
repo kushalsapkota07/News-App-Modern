@@ -45,6 +45,9 @@ class NewsViewModel(
 
     val selectedCategory = MutableLiveData<String>()
 
+    var topTrendingPage = 1
+    var currentNewsCategoryPage = 1
+
 //    init {
 //        getTopTrendingNews("wo","top")
 //    }

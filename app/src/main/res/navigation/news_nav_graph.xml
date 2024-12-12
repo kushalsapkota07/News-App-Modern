@@ -48,7 +48,7 @@
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.example.newsappmodern.ui.ArticleFragment"
-        android:label="@string/home" >
+        android:label="@string/back" >
 
         <argument
             android:name="article"

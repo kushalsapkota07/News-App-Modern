@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import com.example.newsappmodern.R
 import com.example.newsappmodern.adapters.CountryAdapter
 import com.example.newsappmodern.databinding.FragmentProfilePageBinding
+import com.example.newsappmodern.databinding.ItemCountryBinding
 import com.example.newsappmodern.repository.UserPreferencesRepository
 import com.example.newsappmodern.util.Countries
 import com.example.newsappmodern.viewmodel.NewsViewModel
@@ -75,7 +76,7 @@ class ProfilePageFragment: Fragment() {
         profilePageBinding.darkModeSwitchView.darkModeSwitch.isChecked = isDarkMode
 
         viewModel.isConfirmed.observe(viewLifecycleOwner, Observer {
-
+            initialSelection=true
             if(viewModel.isConfirmed.value==true){
                 Toast.makeText(requireContext(),"Restart Clicked",Toast.LENGTH_SHORT).show()
                 userPreferencesRepository.setCountryCode(selectedCountryCode)
@@ -87,7 +88,7 @@ class ProfilePageFragment: Fragment() {
             } else{
 
                 profilePageBinding.sCountries.setSelection(countryIndex+1)
-                initialSelection=true
+
             }
 
         })
