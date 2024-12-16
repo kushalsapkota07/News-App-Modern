@@ -30,9 +30,8 @@ class ArticleFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         articlePageBinding = FragmentArticlePageBinding.inflate(layoutInflater)
-
 
         return articlePageBinding.root
     }
@@ -46,13 +45,12 @@ class ArticleFragment: Fragment() {
         activity.setSupportActionBar(articlePageBinding.toolbar)
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val navController = findNavController()
-        activity.supportActionBar?.title = getString(R.string.home)
+        activity.supportActionBar?.title = getString(R.string.back)
 
         //Handle the back arrow click
         articlePageBinding.toolbar.setNavigationOnClickListener {
             navController.navigateUp()
         }
-
 
         val article: Article = args.article
 

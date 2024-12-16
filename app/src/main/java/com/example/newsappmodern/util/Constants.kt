@@ -8,7 +8,7 @@ class Constants {
         const val API_KEY = "pub_57534a151e9b364446a690336854c5aecf683"
         const val BASE_URL = "https://newsdata.io/api/"
         const val SEARCH_NEWS_TIME_DELAY = 500L
-        const val QUERY_PAGE_SIZE = 30
+        const val QUERY_PAGE_SIZE = 10
         const val PREFERENCE_NAME = "NEWS_APP_PREF"
         const val PREF_IS_DARK_MODE = "PREF_IS_DARK_MODE"
         const val PREF_COUNTRY = "PREF_COUNTRY"
@@ -47,8 +47,5 @@ enum class Countries(val country:String,val countryCode:String, val icon:Int) {
     }
 }
 
-fun Countries.checkClass(country: String):Boolean{
-    return this.name == country
-}
 
 

@@ -2,5 +2,7 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
+    //noinspection GradleDependency
     id ("androidx.navigation.safeargs.kotlin") version "2.8.4" apply false
 }
+

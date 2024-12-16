@@ -33,10 +33,6 @@ class NewsViewModel(
     var allNewsResponse: MutableMap<String,NewsResponse> = mutableMapOf()
     var currentNewsPage:String? = null
 
-    private val _latestNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-    val latestNews: LiveData<Resource<NewsResponse>> = _latestNews
-    var latestNewsResponse:NewsResponse ? = null
-    var latestNewsPage:String? = null
 
     private val _topTrendingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     val topTrendingNews: LiveData<Resource<NewsResponse>> = _topTrendingNews
@@ -46,33 +42,27 @@ class NewsViewModel(
     val selectedCategory = MutableLiveData<String>()
 
     var topTrendingPage = 1
-    var currentNewsCategoryPage = 1
+    var currentCategoryPage = 1
+
 
 //    init {
 //        getTopTrendingNews("wo","top")
 //    }
 
-    fun getCurrentNews(countryCode: String,category: String): LiveData<Resource<NewsResponse>>{
+    fun getCurrentNews(countryCode: String,category: String, page: String?): LiveData<Resource<NewsResponse>>{
         return _categoryNewsMap.getOrPut(category){
             MutableLiveData<Resource<NewsResponse>>()
                 .apply {
                     postValue(Resource.Loading())
                 }
                 .also {
-                loadDataForCategory(countryCode,category) //Trigger Data load when LiveData is created
+                loadDataForCategory(countryCode,category, page) //Trigger Data load when LiveData is created
             }
         }
     }
 
-    fun getLatestNews(countryCode: String, category: String?) {
-        viewModelScope.launch {
-            _latestNews.postValue(Resource.Loading())
-            val response: Response<NewsResponse> = newsRepository.getLatestNews(countryCode,category,latestNewsPage)
-            _latestNews.postValue(handleLatestNewsResponse(response))
-        }
-    }
 
-     fun getTopTrendingNews(countryCode: String,category: String){
+     fun getTopTrendingNews(countryCode: String,category: String, topTrendingNewsPage:String?){
         viewModelScope.launch {
             _topTrendingNews.postValue(Resource.Loading())
             val response: Response<NewsResponse> = newsRepository.getTopTrendingNews(countryCode,category,topTrendingNewsPage)
@@ -82,7 +72,7 @@ class NewsViewModel(
 
     //Loading data and posting it to the specific LiveData entry in the map
 
-    private fun loadDataForCategory( countryCode: String,category: String){
+     fun loadDataForCategory( countryCode: String,category: String, currentNewsPage: String?){
         viewModelScope.launch {
             val response: Response<NewsResponse> = newsRepository.getLatestNews(countryCode, category,currentNewsPage)
             _categoryNewsMap[category]?.postValue(handleCurrentNewsResponse(response,category))
@@ -91,11 +81,14 @@ class NewsViewModel(
     private fun handleCurrentNewsResponse(response: Response<NewsResponse>, category: String): Resource<NewsResponse> {
         if(response.isSuccessful){
             response.body()?.let { resultResponse->
+                currentCategoryPage++
                 if(allNewsResponse[category]==null){
                     allNewsResponse[category] = resultResponse
+                    currentNewsPage = resultResponse.nextPage
                 } else{
                     val oldArticles = allNewsResponse[category]?.results
                     val newArticles = resultResponse.results
+                    currentNewsPage = resultResponse.nextPage
                     oldArticles?.addAll(newArticles)
                 }
                 return Resource.Success(allNewsResponse[category]?: resultResponse)
@@ -104,30 +97,17 @@ class NewsViewModel(
         return Resource.Error(response.message())
     }
 
-    private fun handleLatestNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
-        if(response.isSuccessful){
-            response.body()?.let { resultResponse->
-                if(latestNewsResponse==null){
-                    latestNewsResponse = resultResponse
-                } else{
-                    val oldArticles = latestNewsResponse?.results
-                    val newArticles = resultResponse.results
-                    oldArticles?.addAll(newArticles)
-                }
-                return Resource.Success(latestNewsResponse?: resultResponse)
-            }
-        }
-        return Resource.Error(response.message())
-    }
-
     private fun handleTopTrendingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse>{
         if(response.isSuccessful){
             response.body()?.let { resultResponse->
+                topTrendingPage++
                 if(topTrendingNewsResponse==null){
                     topTrendingNewsResponse = resultResponse
+                    topTrendingNewsPage = resultResponse.nextPage
                 } else{
                     val oldArticles = topTrendingNewsResponse?.results
                     val newArticles = resultResponse.results
+                    topTrendingNewsPage = resultResponse.nextPage
                     oldArticles?.addAll(newArticles)
                 }
                 return Resource.Success(topTrendingNewsResponse?: resultResponse)

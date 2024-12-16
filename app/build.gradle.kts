@@ -10,6 +10,7 @@ plugins {
 }
 
 android {
+
     namespace = "com.example.newsappmodern"
     compileSdk = 35
 

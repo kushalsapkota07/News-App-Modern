@@ -57,7 +57,11 @@ class NewsAdapterCardView: RecyclerView.Adapter<NewsAdapterCardView.ArticleItemC
 
         val article : Article = differ.currentList[position]
         holder.articleItemCardViewBinding.apply {
-            Glide.with(this.root).load(article.imageUrl).placeholder(R.drawable.article_placeholder_image).into(articleImage)
+            Glide.with(this.root).
+            load(article.imageUrl).
+            placeholder(R.drawable.article_placeholder_image)
+                .into(articleImage)
+
 
             articleHeadline.text = article.title
             root.setOnClickListener {

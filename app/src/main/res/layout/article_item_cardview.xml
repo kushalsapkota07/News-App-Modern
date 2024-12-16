@@ -23,6 +23,8 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/roundedCornersShapeableImageView" />
+
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/articleHeadline"
             android:layout_width="wrap_content"
@@ -39,6 +41,18 @@
             android:text="@string/sample_news_headline"
             android:textColor="@color/white"
             />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivArticleBackgroundImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/article_headline_background"
+            app:layout_constraintStart_toStartOf="@id/articleImage"
+            app:layout_constraintEnd_toEndOf="@id/articleImage"
+            app:layout_constraintTop_toTopOf="@id/articleHeadline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -1,14 +1,17 @@
 package com.example.newsappmodern.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.newsappmodern.R
 import com.example.newsappmodern.adapters.NewsAdapterCardView
@@ -16,9 +19,13 @@ import com.example.newsappmodern.adapters.NewsCategoryViewPagerAdapter
 import com.example.newsappmodern.databinding.FragmentHomePageBinding
 import com.example.newsappmodern.models.NewsResponse
 import com.example.newsappmodern.repository.UserPreferencesRepository
+import com.example.newsappmodern.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.newsappmodern.util.Resource
 import com.example.newsappmodern.viewmodel.NewsViewModel
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class HomePageFragment: Fragment() {
@@ -65,7 +72,8 @@ class HomePageFragment: Fragment() {
 
         viewModel.getTopTrendingNews(
             userPreferencesRepository.getCountryCode(),
-            "top"
+            "top",
+            null
         )
 
         //Observing data - horizontal recyclerview
@@ -75,6 +83,12 @@ class HomePageFragment: Fragment() {
                     hideProgressBarHorizontalRV()
                     response.data?.let { newsResponse: NewsResponse ->
                         newsAdapterCardView.differ.submitList(newsResponse.results.toList())
+
+                        val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE +2
+                        isLastPage = viewModel.topTrendingPage == totalPages
+                        if(isLastPage){
+                            homePageBinding.rvTopTrendingNews.setPadding(0,0,0,0)
+                        }
                     }
 
                 }
@@ -141,6 +155,8 @@ class HomePageFragment: Fragment() {
         homePageBinding.rvTopTrendingNews.apply {
             adapter = newsAdapterCardView
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            addOnScrollListener(scrollListener)
+
         }
     }
 
@@ -153,5 +169,57 @@ class HomePageFragment: Fragment() {
     private fun showProgressBarHorizontalRV(){
         homePageBinding.progressBarCardView.visibility = View.VISIBLE
         homePageBinding.tvErrorMessageHorizontalRV.visibility = View.VISIBLE
+    }
+
+    var isLoading = false
+    var isLastPage = false
+    var isScrolling = false
+
+    //On Scroll Listener for Recycler view
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            //detecting if we have scrolled to the bottom
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val totalVisibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+
+            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+            val isAtLastItem = firstVisibleItemPosition + totalVisibleItemCount >= totalItemCount
+
+            //checking if the first item is visible or not
+            val isNotAtBeginning = firstVisibleItemPosition >= 0
+
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
+
+            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
+                    isTotalMoreThanVisible && isScrolling
+
+            if (shouldPaginate) {
+                println("Inside should paginate")
+                viewModel.topTrendingNewsPage?.let {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        viewModel.getTopTrendingNews(
+                            userPreferencesRepository.getCountryCode(),
+                            "top",
+                            it
+                        )
+                    }
+
+                }
+                println("${viewModel.topTrendingNewsPage} is the page number")
+
+                isScrolling = false
+            }
+        }
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            //detecting if we are currently scrolling
+            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                isScrolling = true
+            }
+        }
     }
 }
